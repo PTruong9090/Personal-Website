@@ -69,6 +69,9 @@ function App() {
                     <a href="https://www.linkedin.com/in/ptruong9090/" target='_blank'>
                       <img className="github-icon" src='linkedin.svg'></img>
                     </a>
+                    <a href="https://www.instagram.com/_phuc_tr_/" target='_blank'>
+                      <img className="github-icon" src='instagram.svg'></img>
+                    </a>
                   </li>
                 </ul>
           </div>
