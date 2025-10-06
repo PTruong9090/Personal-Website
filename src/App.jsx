@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import gsap from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 
@@ -29,7 +27,7 @@ function App() {
         <a className='navbar-brand' href="#page-top">
           <span className='title-font d-block d-lg-none'>Phuc Truong</span>
           <span className='d-none d-lg-block'> 
-            <img className='img-fluid img-profile rounded-circle mx-auto mb-2' src='phuc_photo.jpeg' loading="lazy" alt=''></img>
+            <img className='img-fluid img-profile rounded-circle mx-auto mb-2' src='phuc_photo.webp' alt='Phuc Truong'></img>
           </span>
         </a>
 

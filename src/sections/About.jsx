@@ -10,7 +10,7 @@ export default function About() {
             <ul className='list-inline list-social-icons mb-0'>
                   <li className='list-inline-item mt-4'>
                     <a href="https://github.com/PTruong9090" target='_blank'>
-                      <img className="github-icon" src='github-mark.svg' loading="lazy"></img>
+                      <img className="github-icon" src='github-mark.svg' loading="lazy" decoding="async"></img>
                     </a>
                     <a href="https://www.linkedin.com/in/ptruong9090/" target='_blank'>
                       <img className="github-icon" src='linkedin.svg' loading="lazy"></img>
