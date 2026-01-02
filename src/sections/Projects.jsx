@@ -35,37 +35,76 @@ functionalities for each user type</li>
               </div>
             </div>
 
-            <div className='resume-item d-flex flex-column flex-md-row mb-5 d-flex flex-column flex-md-row mb-5'>
-              <div className='resume-content me-auto'>
-                <h3 className='mb-0'>University Degree Planner</h3>
-                <div className='subheading mb-3'>
-                  Web Application
-                  <br/>
-                  Skills Used: Playwright, JavaScript, PostgreSQL, Express.js, Tailwind.css
+            <div className="resume-item d-flex flex-column flex-md-row mb-5">
+              <div className="resume-content me-auto">
+                <h3 className="mb-0">PlanBear</h3>
+
+                <div className="subheading mb-3">
+                  Production Full-Stack Web Application <br />
+                  <strong>Tech:</strong> React, Vite, Node.js, Express, PostgreSQL, Sequelize, AWS, Playwright
                 </div>
-               <ul className='list-inline list-social-icons mb-0'>
-                  <li className='list-inline-item'>
-                    <a href="https://github.com/PTruong9090/University-Degree-Planner" target='_blank'>
-                      <span className='fa-stack fa-lg'>
-                        <img className="github-icon" src='github-mark.svg'></img>
+
+                <ul className="list-inline list-social-icons mb-0">
+                  <li className="list-inline-item">
+                    <a
+                      href="https://github.com/PTruong9090/University-Degree-Planner"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span className="fa-stack fa-lg">
+                        <img className="github-icon" src="github-mark.svg" alt="GitHub" />
+                      </span>
+                    </a>
+                  </li>
+
+                  <li className="list-inline-item">
+                    <a
+                      href="https://planbear.io"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span className="fa-stack fa-lg">
+                        <i className="fas fa-globe"></i>
                       </span>
                     </a>
                   </li>
                 </ul>
-                <br></br>
+
+                <br />
+
                 <ul>
-                  <li>Created a full-stack web application using React and REST API for students to easily create and save their
-4-year-plan based on their major
+                  <li>
+                    Designed and built a production-grade full-stack web application that
+                    enables students to create, manage, and visualize multi-year academic
+                    degree plans through a responsive drag-and-drop interface.
                   </li>
-                  <li>Utilized Playwright to efficiently obtain data from UCLA website to acquire relevant information for hundred of
-different majors</li>
-                  <li>Created data models using Sequelize, ensuring efficient interaction between the application and PostgreSQL
-database by defining relationships and implementing optimized queries</li>
-                  <li>Implemented ability to drag-drop courses and calculate credits per quarter automatically</li>
-                  <li>Automated data pipeline from Playwright to PostgreSQL database for hundreds of JSON files</li>
+
+                  <li>
+                    Architected a scalable backend using Node.js, Express, and PostgreSQL,
+                    modeling courses, prerequisites, units, and academic constraints with
+                    normalized schemas and optimized Sequelize queries.
+                  </li>
+
+                  <li>
+                    Implemented real-time drag-and-drop course placement with automatic unit
+                    calculations per quarter and year.
+                  </li>
+
+                  <li>
+                    Deployed and managed the application on AWS using Elastic Beanstalk, S3,
+                    and CloudFront, configuring custom domains, HTTPS, environment-based
+                    configuration, and secure API communication.
+                  </li>
+
+                  <li>
+                    Automated large-scale curriculum data ingestion using Playwright,
+                    scraping and transforming structured UCLA course data for hundreds of
+                    majors into validated JSON pipelines for database seeding.
+                  </li>
                 </ul>
               </div>
             </div>
+
 
             <div className='resume-item d-flex flex-column flex-md-row mb-5'>
               <div className='resume-content me-auto'>
