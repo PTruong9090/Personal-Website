@@ -6,7 +6,7 @@ export default function About() {
             <h3>Mathematics of Computation @ UCLA</h3>
             <div className='subheading mb-3 mb-5'>San Jose, CA · <a href="mailto:ptruong9090@gmail.com">ptruong9090@gmail.com</a></div>
             <p className='mb-5'>I am an aspiring software engineer that enjoys building software to automate tasks and improve productivity!</p>
-            <a href="Phuc_Resume_2025.pdf" target="_blank">View Resume as PDF</a>
+            <a href="Phuc_Truong_Resume.pdf" target="_blank">View Resume as PDF</a>
             <ul className='list-inline list-social-icons mb-0'>
                   <li className='list-inline-item mt-4'>
                     <a href="https://github.com/PTruong9090" target='_blank'>
