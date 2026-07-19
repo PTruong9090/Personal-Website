@@ -4,23 +4,25 @@
 
 /*
  * Design tokens - portfolio redesign (docs/design-brief.md, section 4).
- * Dark-only. Near-black base with a slight green cast, one operational
- * accent, semantic status colors reserved for status chips.
+ * Dark-only. Near-black base with a slight blue cast, blue accent,
+ * semantic status colors reserved for status chips.
  * All text/background pairs must hold WCAG AA.
  */
 @theme {
-  --color-bg: #0c110f;
-  --color-surface: #131a17;
-  --color-surface-raised: #182220;
-  --color-border: #24322b;
-  --color-text: #e4ece7;
-  --color-muted: #9db1a6;
-  --color-accent: #6fdd8b;
+  --color-bg: #0b0f14;
+  --color-surface: #111722;
+  --color-surface-raised: #16202c;
+  --color-border: #22303f;
+  --color-text: #e4eaf1;
+  --color-muted: #9cadc0;
+  --color-accent: #6cb3fa;
 
-  /* status chip colors - never used for body text */
+  /* status chip colors - never used for body text.
+   * LIVE stays green: in dashboard semantics green = healthy/up,
+   * and that convention is what the chip trades on. */
   --color-status-live: #6fdd8b;
   --color-status-dev: #e0b64a;
-  --color-status-paused: #93a8ec;
+  --color-status-paused: #93a3b8;
   --color-status-ongoing: #5bc8d0;
 
   --font-sans: "Inter Variable", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
