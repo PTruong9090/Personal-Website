@@ -1,17 +1,143 @@
 ---
 import Base from '../layouts/Base.astro';
+import Topology from '../components/Topology.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const personSchema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Phuc Truong',
+  url: 'https://phuctruong.dev',
+  jobTitle: 'Software Engineer',
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'University of California, Los Angeles',
+  },
+  sameAs: [
+    'https://github.com/PTruong9090',
+    'https://www.linkedin.com/in/ptruong9090/',
+  ],
+});
+
+const otherProjects = [
+  {
+    name: 'BruinGrub',
+    href: 'https://github.com/PTruong9090/UCLA-Dining-YELP',
+    line: 'Team-built UCLA dining review app (CS 35L) - owned the calorie-counter page and the JWT login/signup flow.',
+  },
+  {
+    name: 'KnowYourTimes',
+    href: 'https://github.com/PTruong9090/KnowYourTimes',
+    line: 'Hackathon news-quiz app that generates questions from daily news with the Gemini API.',
+  },
+  {
+    name: 'The Miracle Project',
+    href: 'https://github.com/PTruong9090/The-Miracle-Project',
+    line: 'Accessibility-focused learning platform with voice navigation, built at Hack2Impact.',
+  },
+];
 ---
 
 <Base
   title="Phuc Truong - Software Engineer"
   description="Full-stack engineer who builds and operates his own infrastructure. PlanBear, homelab anomaly detection, VisionX."
 >
-  <h1 class="text-3xl font-semibold">Phuc Truong</h1>
-  <p class="mt-3 max-w-measure text-lg text-muted">
-    Full-stack engineer who builds and operates his own infrastructure.
-  </p>
-  <p class="mt-10 font-mono text-sm text-muted">
-    [scaffold placeholder - home page is built in Phase 3 of
-    docs/design-brief.md]
-  </p>
+  <script type="application/ld+json" set:html={personSchema} slot="head" />
+
+  <section>
+    <h1 class="text-4xl font-semibold tracking-tight">Phuc Truong</h1>
+    <p class="mt-4 max-w-measure text-xl leading-relaxed text-muted">
+      Full-stack engineer who builds and operates his own infrastructure.
+    </p>
+    <p class="mt-3 font-mono text-sm text-muted">
+      B.S. Mathematics of Computation, UCLA '26 · San Jose, CA
+    </p>
+    <div class="mt-5 flex gap-5 font-mono text-sm">
+      <a href="/Phuc_Truong_Resume.pdf" class="text-accent hover:underline">resume.pdf</a>
+      <a
+        href="https://github.com/PTruong9090"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-accent hover:underline"
+      >
+        github
+      </a>
+      <a
+        href="https://www.linkedin.com/in/ptruong9090/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-accent hover:underline"
+      >
+        linkedin
+      </a>
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <h2 class="font-mono text-xs tracking-wide text-muted uppercase">The homelab</h2>
+    <p class="mt-2 max-w-measure text-muted">
+      The map below is drawn from the live system: a mini PC and an Unraid NAS
+      that serve PlanBear, run the anomaly-detection pipeline against their own
+      telemetry, and will host VisionX. Click a node to read its case study.
+    </p>
+    <div class="mt-6">
+      <Topology />
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <h2 class="font-mono text-xs tracking-wide text-muted uppercase">Featured work</h2>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+      <ProjectCard
+        title="PlanBear"
+        href="/projects/planbear"
+        status="live"
+        description="Degree-planning platform for UCLA students: drag-and-drop 16-quarter planner over a 15k-course catalog, deployed and operated end to end."
+        tech={['React', 'Express', 'PostgreSQL', 'Sequelize', 'Cloudflare Tunnel']}
+      />
+      <ProjectCard
+        title="Homelab Anomaly Detection"
+        href="/projects/anomaly"
+        status="paused"
+        statusDetail="WORKING MVP"
+        description="TranAD adapted to my own server telemetry: Prometheus export pipeline, FastAPI scoring service, results fed back into Grafana with Discord alerts."
+        tech={['Python', 'PyTorch', 'FastAPI', 'Prometheus', 'Grafana', 'Docker']}
+      />
+      <ProjectCard
+        title="VisionX"
+        href="/projects/visionx"
+        status="in-development"
+        description="Home security system built for my own house: camera management and live WebRTC streaming today, an ML recording pipeline in design."
+        tech={['FastAPI', 'SQLAlchemy', 'PostgreSQL', 'go2rtc', 'React']}
+      />
+      <ProjectCard
+        title="Homelab Infrastructure"
+        href="/homelab"
+        status="ongoing"
+        description="The hardware under everything above: Unraid NAS and a mini PC running Docker services behind Cloudflare Tunnels, Tailscale, and Caddy."
+        tech={['Docker', 'Linux', 'Unraid', 'Prometheus', 'Grafana', 'Tailscale']}
+      />
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <h2 class="font-mono text-xs tracking-wide text-muted uppercase">Other projects</h2>
+    <ul class="mt-4 space-y-3">
+      {
+        otherProjects.map((p) => (
+          <li class="text-sm leading-relaxed">
+            <a
+              href={p.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="font-medium text-accent hover:underline"
+            >
+              {p.name}
+            </a>
+            <span class="text-muted"> - {p.line}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </Base>
