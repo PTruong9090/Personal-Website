@@ -167,34 +167,62 @@ const labelY = (n: Node) => (n.sub ? n.y + n.h / 2 - 3 : n.y + n.h / 2 + 4);
   </svg>
 
   <!-- Small-screen fallback: same information, structured list -->
-  <div class="space-y-3 md:hidden">
+  <div class="space-y-5 md:hidden">
     <p class="zone-label-html">INTERNET → Cloudflare Tunnels → cloudflared ×3 · Caddy</p>
-    <div class="rounded-lg border border-border bg-surface p-4">
-      <p class="font-mono text-sm">
-        media-server <span class="text-muted">· ThinkCentre mini PC · Docker</span>
+
+    <div class="overflow-hidden rounded-xl border border-border bg-surface">
+      <p class="border-b border-border px-5 py-4 font-mono text-sm">
+        media-server
+        <span class="text-muted"> · ThinkCentre mini PC · Docker</span>
       </p>
-      <ul class="mt-3 space-y-2 text-sm">
-        <li><a class="text-accent underline underline-offset-4" href="/projects/planbear">PlanBear backend</a> <span class="text-muted">· planbear.io</span></li>
-        <li><a class="text-accent underline underline-offset-4" href="/projects/anomaly">TranAD + exporter</a> <span class="text-muted">· anomaly scoring</span></li>
-        <li><a class="text-accent underline underline-offset-4" href="/homelab">Prometheus · Grafana</a> <span class="text-muted">· monitoring</span></li>
-        <li><a class="text-accent underline underline-offset-4" href="/projects/visionx">VisionX</a> <span class="text-muted">· in development</span></li>
-        <li class="text-muted">Nextcloud · Jellyfin media stack · Homepage dashboard</li>
+      <ul class="divide-y divide-border/60">
+        <li class="px-5 py-3.5">
+          <a class="text-accent underline underline-offset-4" href="/projects/planbear">PlanBear backend</a>
+          <span class="text-sm text-muted"> · planbear.io</span>
+        </li>
+        <li class="px-5 py-3.5">
+          <a class="text-accent underline underline-offset-4" href="/projects/anomaly">TranAD + exporter</a>
+          <span class="text-sm text-muted"> · anomaly scoring</span>
+        </li>
+        <li class="px-5 py-3.5">
+          <a class="text-accent underline underline-offset-4" href="/homelab">Prometheus · Grafana</a>
+          <span class="text-sm text-muted"> · monitoring</span>
+        </li>
+        <li class="px-5 py-3.5">
+          <a class="text-accent underline underline-offset-4" href="/projects/visionx">VisionX</a>
+          <span class="text-sm text-muted"> · in development</span>
+        </li>
+        <li class="px-5 py-3.5 text-sm leading-relaxed text-muted">
+          Nextcloud · Jellyfin media stack · Homepage dashboard
+        </li>
       </ul>
     </div>
-    <div class="rounded-lg border border-border bg-surface p-4">
-      <p class="font-mono text-sm">
-        unraid-nas <span class="text-muted">· 18 TB parity array</span>
+
+    <div class="overflow-hidden rounded-xl border border-border bg-surface">
+      <p class="border-b border-border px-5 py-4 font-mono text-sm">
+        unraid-nas
+        <span class="text-muted"> · 18 TB parity array</span>
       </p>
-      <ul class="mt-3 space-y-2 text-sm">
-        <li><a class="text-accent underline underline-offset-4" href="/homelab">NFS exports</a> <span class="text-muted">· media · nextcloud · backups</span></li>
-        <li><a class="text-accent underline underline-offset-4" href="/homelab">node-exporter</a> <span class="text-muted">· telemetry</span></li>
+      <ul class="divide-y divide-border/60">
+        <li class="px-5 py-3.5">
+          <a class="text-accent underline underline-offset-4" href="/homelab">NFS exports</a>
+          <span class="text-sm text-muted"> · media · nextcloud · backups</span>
+        </li>
+        <li class="px-5 py-3.5">
+          <a class="text-accent underline underline-offset-4" href="/homelab">node-exporter</a>
+          <span class="text-sm text-muted"> · telemetry</span>
+        </li>
       </ul>
     </div>
-    <ul class="space-y-1 font-mono text-xs text-muted">
-      <li>PlanBear backend → Supabase (PostgreSQL)</li>
-      <li>03:00 cron · pg_dump → NFS → NAS</li>
-      <li>Prometheus → NAS node metrics via Tailscale</li>
-    </ul>
+
+    <div class="rounded-xl border border-border bg-surface px-5 py-4">
+      <p class="font-mono text-xs tracking-wide text-muted uppercase">Flows</p>
+      <ul class="mt-3 space-y-2 font-mono text-xs leading-relaxed text-muted">
+        <li>PlanBear backend → Supabase (PostgreSQL)</li>
+        <li>03:00 cron · pg_dump → NFS → NAS</li>
+        <li>Prometheus → NAS node metrics via Tailscale</li>
+      </ul>
+    </div>
   </div>
 </figure>
 

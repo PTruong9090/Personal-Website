@@ -41,7 +41,7 @@ const currentPath = Astro.url.pathname;
     <header class="border-b border-border">
       <nav
         aria-label="Main"
-        class="mx-auto flex max-w-4xl items-center justify-between px-4 py-4"
+        class="mx-auto flex max-w-4xl items-center justify-between px-5 py-5 sm:px-6"
       >
         <a href="/" class="font-mono text-sm text-accent">phuctruong.dev</a>
         <ul class="flex gap-5">
@@ -62,13 +62,13 @@ const currentPath = Astro.url.pathname;
       </nav>
     </header>
 
-    <main id="main" class="mx-auto w-full max-w-4xl flex-1 px-4 py-10">
+    <main id="main" class="mx-auto w-full max-w-4xl flex-1 px-5 py-14 sm:px-6">
       <slot />
     </main>
 
     <footer class="border-t border-border">
       <div
-        class="mx-auto flex max-w-4xl flex-wrap items-center gap-x-5 gap-y-2 px-4 py-6 text-sm text-muted"
+        class="mx-auto flex max-w-4xl flex-wrap items-center gap-x-6 gap-y-2 px-5 py-8 text-sm text-muted sm:px-6"
       >
         <a href="/Phuc_Truong_Resume.pdf" class="hover:text-text">Resume (PDF)</a>
         <a href="mailto:ptruong9090@gmail.com" class="hover:text-text">Email</a>
