@@ -1,0 +1,44 @@
+---
+/**
+ * Status chip - the honesty-label component (brief sections 4 and 7).
+ * `detail` appends factual context, e.g. "WORKING MVP · JUNE 2026".
+ */
+export type Status =
+  | 'live'
+  | 'in-development'
+  | 'paused'
+  | 'ongoing'
+  | 'designed'
+  | 'implemented';
+
+interface Props {
+  status: Status;
+  detail?: string;
+}
+
+const { status, detail } = Astro.props;
+
+const config: Record<Status, { label: string; color: string }> = {
+  live: { label: 'LIVE', color: 'var(--color-status-live)' },
+  'in-development': { label: 'IN DEVELOPMENT', color: 'var(--color-status-dev)' },
+  paused: { label: 'PAUSED', color: 'var(--color-status-paused)' },
+  ongoing: { label: 'ONGOING', color: 'var(--color-status-ongoing)' },
+  designed: { label: 'DESIGNED', color: 'var(--color-muted)' },
+  implemented: { label: 'IMPLEMENTED', color: 'var(--color-status-live)' },
+};
+
+const { label, color } = config[status];
+const text = detail ? `${label} · ${detail}` : label;
+---
+
+<span
+  class="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-2.5 py-0.5 font-mono text-xs tracking-wide whitespace-nowrap"
+  style={`color: ${color}`}
+>
+  <span
+    class="size-1.5 rounded-full"
+    style={`background-color: ${color}`}
+    aria-hidden="true"
+  ></span>
+  {text}
+</span>

@@ -1,0 +1,27 @@
+---
+import StatusChip from './StatusChip.astro';
+import type { Status } from './StatusChip.astro';
+
+interface Props {
+  title: string;
+  href: string;
+  status: Status;
+  statusDetail?: string;
+  description: string;
+  tech: string[];
+}
+
+const { title, href, status, statusDetail, description, tech } = Astro.props;
+---
+
+<a
+  href={href}
+  class="group block rounded-lg border border-border bg-surface p-5 transition-colors hover:border-accent/60 focus-visible:border-accent"
+>
+  <div class="flex flex-wrap items-center justify-between gap-2">
+    <h3 class="text-lg font-semibold group-hover:text-accent">{title}</h3>
+    <StatusChip status={status} detail={statusDetail} />
+  </div>
+  <p class="mt-2 text-sm leading-relaxed text-muted">{description}</p>
+  <p class="mt-3 font-mono text-xs text-muted/80">{tech.join(' · ')}</p>
+</a>

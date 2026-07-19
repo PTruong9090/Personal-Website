@@ -1,0 +1,32 @@
+---
+/**
+ * Dated milestone list inside a case study (Direction D hybrid element).
+ * Entries are real milestones only - no filler (brief section 7).
+ */
+interface Entry {
+  date: string;
+  text: string;
+}
+
+interface Props {
+  entries: Entry[];
+}
+
+const { entries } = Astro.props;
+---
+
+<section aria-label="Changelog" class="rounded-lg border border-border bg-surface p-5">
+  <h2 class="font-mono text-xs tracking-wide text-muted uppercase">Changelog</h2>
+  <ul class="mt-3 space-y-2">
+    {
+      entries.map((entry) => (
+        <li class="flex gap-4 text-sm">
+          <time class="shrink-0 font-mono text-xs leading-6 text-muted">
+            {entry.date}
+          </time>
+          <span class="leading-6">{entry.text}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>

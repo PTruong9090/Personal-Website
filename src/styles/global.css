@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
 
 /*
  * Design tokens - portfolio redesign (docs/design-brief.md, section 4).
@@ -21,11 +23,11 @@
   --color-status-paused: #93a8ec;
   --color-status-ongoing: #5bc8d0;
 
-  --font-sans: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+  --font-sans: "Inter Variable", system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
 
-  /* editorial reading measure for case-study prose */
-  --spacing-measure: 70ch;
+  /* editorial reading measure for case-study prose (max-w-measure) */
+  --container-measure: 70ch;
 }
 
 html {
@@ -49,4 +51,124 @@ body {
 ::selection {
   background-color: var(--color-accent);
   color: var(--color-bg);
+}
+
+/*
+ * Editorial prose for case-study body text (brief section 4: dashboard
+ * frame, editorial reading). Applied to rendered Markdown containers.
+ */
+.prose {
+  max-width: var(--container-measure);
+  font-size: 1.0625rem;
+  line-height: 1.75;
+}
+
+.prose h2 {
+  margin-top: 2.5em;
+  margin-bottom: 0.6em;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.prose h3 {
+  margin-top: 1.8em;
+  margin-bottom: 0.5em;
+  font-size: 1.17rem;
+  font-weight: 600;
+}
+
+.prose p {
+  margin-block: 1em;
+}
+
+.prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--color-accent) 45%, transparent);
+}
+
+.prose a:hover {
+  text-decoration-color: var(--color-accent);
+}
+
+.prose ul,
+.prose ol {
+  margin-block: 1em;
+  padding-inline-start: 1.4em;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose li {
+  margin-block: 0.35em;
+}
+
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+}
+
+.prose pre {
+  margin-block: 1.4em;
+  padding: 1em 1.2em;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.86rem;
+}
+
+.prose blockquote {
+  margin-block: 1.4em;
+  padding-inline-start: 1em;
+  border-inline-start: 3px solid var(--color-border);
+  color: var(--color-muted);
+}
+
+.prose img {
+  margin-block: 1.6em;
+  max-width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.prose table {
+  margin-block: 1.4em;
+  display: block;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid var(--color-border);
+  padding: 0.5em 0.9em;
+  text-align: left;
+}
+
+.prose th {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
 }

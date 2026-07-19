@@ -5,7 +5,11 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://phuctruong.dev',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/styleguide'),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

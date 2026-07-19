@@ -1,0 +1,105 @@
+---
+/**
+ * Internal design-system review page (Phase 2 deliverable). Not linked
+ * from navigation, noindexed, excluded from the sitemap. All sample data
+ * is real project data - no invented content (brief section 7).
+ */
+import Base from '../layouts/Base.astro';
+import StatusChip from '../components/StatusChip.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Changelog from '../components/Changelog.astro';
+import Metric from '../components/Metric.astro';
+---
+
+<Base title="Styleguide (internal)" description="Internal design-system review page.">
+  <meta slot="head" name="robots" content="noindex" />
+
+  <h1 class="text-2xl font-semibold">Design system</h1>
+  <p class="mt-2 text-muted">
+    Internal review page for Phase 2 components. Not linked in navigation.
+  </p>
+
+  <h2 class="mt-12 font-mono text-xs tracking-wide text-muted uppercase">Status chips</h2>
+  <div class="mt-4 flex flex-wrap gap-3">
+    <StatusChip status="live" />
+    <StatusChip status="in-development" />
+    <StatusChip status="paused" detail="WORKING MVP · JUNE 2026" />
+    <StatusChip status="ongoing" />
+    <StatusChip status="designed" />
+    <StatusChip status="implemented" />
+  </div>
+
+  <h2 class="mt-12 font-mono text-xs tracking-wide text-muted uppercase">Project cards</h2>
+  <div class="mt-4 grid gap-4 sm:grid-cols-2">
+    <ProjectCard
+      title="PlanBear"
+      href="/projects/planbear"
+      status="live"
+      description="Degree-planning platform for UCLA students: drag-and-drop 16-quarter planner over a 15k-course catalog, deployed and operated end to end."
+      tech={['React', 'Express', 'PostgreSQL', 'Sequelize', 'Cloudflare Tunnel']}
+    />
+    <ProjectCard
+      title="Homelab Anomaly Detection"
+      href="/projects/anomaly"
+      status="paused"
+      statusDetail="WORKING MVP"
+      description="TranAD adapted to my own server telemetry: Prometheus export pipeline, FastAPI scoring service, results fed back into Grafana with Discord alerts."
+      tech={['Python', 'PyTorch', 'FastAPI', 'Prometheus', 'Grafana', 'Docker']}
+    />
+    <ProjectCard
+      title="VisionX"
+      href="/projects/visionx"
+      status="in-development"
+      description="Home security system built for my own house: camera management and live WebRTC streaming today, an ML recording pipeline in design."
+      tech={['FastAPI', 'SQLAlchemy', 'PostgreSQL', 'go2rtc', 'React']}
+    />
+    <ProjectCard
+      title="Homelab Infrastructure"
+      href="/homelab"
+      status="ongoing"
+      description="The hardware under everything above: Unraid NAS and a mini PC running Docker services behind Cloudflare Tunnels, Tailscale, and Caddy."
+      tech={['Docker', 'Linux', 'Unraid', 'Prometheus', 'Grafana', 'Tailscale']}
+    />
+  </div>
+
+  <h2 class="mt-12 font-mono text-xs tracking-wide text-muted uppercase">Changelog block</h2>
+  <div class="mt-4 max-w-xl">
+    <Changelog
+      entries={[
+        { date: '2026-07-17', text: 'Nightly pg_dump backups to the NAS, restore-listing verified' },
+        { date: '2026-05-16', text: 'Last feature commit; site live and operated since' },
+        { date: '2025-12', text: 'Sustained development started; catalog scraped with Playwright' },
+      ]}
+    />
+  </div>
+
+  <h2 class="mt-12 font-mono text-xs tracking-wide text-muted uppercase">Metrics row</h2>
+  <div class="mt-4 grid max-w-2xl grid-cols-2 gap-3 sm:grid-cols-4">
+    <Metric value="0.8485" label="F1 score" caveat="synthetic anomalies" />
+    <Metric value="0.9333" label="Precision" caveat="synthetic anomalies" />
+    <Metric value="15,154" label="Course records imported" />
+    <Metric value="196" label="Subject areas" />
+  </div>
+
+  <h2 class="mt-12 font-mono text-xs tracking-wide text-muted uppercase">Prose</h2>
+  <div class="prose mt-4">
+    <h2>Why the scoring service exports back into Prometheus</h2>
+    <p>
+      The anomaly detector's job is not to replace the monitoring stack but to
+      join it. The FastAPI service scores telemetry windows with
+      <code>TranAD</code>, then a small exporter publishes model scores, the
+      POT threshold, and anomaly ratios as Prometheus metrics - so Grafana
+      dashboards and alerting treat model output exactly like any other
+      infrastructure signal.
+    </p>
+    <ul>
+      <li>Scores land next to the raw CPU, memory, and network series they describe.</li>
+      <li>Alert rules fire from the same place operators already look.</li>
+      <li>The model becomes one more monitored service, not a separate system.</li>
+    </ul>
+    <p>
+      Evaluation so far uses <a href="/projects/anomaly">synthetic injected
+      anomalies</a>, which is the honest boundary of what the metrics claim.
+    </p>
+  </div>
+</Base>
