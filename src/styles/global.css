@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens - portfolio redesign (docs/design-brief.md, section 4).
+ * Dark-only. Near-black base with a slight green cast, one operational
+ * accent, semantic status colors reserved for status chips.
+ * All text/background pairs must hold WCAG AA.
+ */
+@theme {
+  --color-bg: #0c110f;
+  --color-surface: #131a17;
+  --color-surface-raised: #182220;
+  --color-border: #24322b;
+  --color-text: #e4ece7;
+  --color-muted: #9db1a6;
+  --color-accent: #6fdd8b;
+
+  /* status chip colors - never used for body text */
+  --color-status-live: #6fdd8b;
+  --color-status-dev: #e0b64a;
+  --color-status-paused: #93a8ec;
+  --color-status-ongoing: #5bc8d0;
+
+  --font-sans: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+
+  /* editorial reading measure for case-study prose */
+  --spacing-measure: 70ch;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
