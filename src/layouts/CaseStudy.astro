@@ -1,0 +1,64 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Base from './Base.astro';
+import StatusChip from '../components/StatusChip.astro';
+import Changelog from '../components/Changelog.astro';
+import Metric from '../components/Metric.astro';
+
+interface Props {
+  entry: CollectionEntry<'projects'>;
+}
+
+const { entry } = Astro.props;
+const { title, description, status, statusDetail, dates, repo, live, tech, metrics, changelog } =
+  entry.data;
+---
+
+<Base title={`${title} - Phuc Truong`} description={description}>
+  <article>
+    <header>
+      <a href="/" class="font-mono text-sm text-muted hover:text-text">← home</a>
+      <div class="mt-6 flex flex-wrap items-center gap-4">
+        <h1 class="text-3xl font-semibold tracking-tight">{title}</h1>
+        <StatusChip status={status} detail={statusDetail} />
+      </div>
+      <p class="mt-4 max-w-measure text-lg leading-relaxed text-muted">{description}</p>
+      <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 font-mono text-sm">
+        <span class="text-muted">{dates}</span>
+        {
+          live && (
+            <a href={live} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">
+              live site
+            </a>
+          )
+        }
+        {
+          repo && (
+            <a href={repo} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">
+              source
+            </a>
+          )
+        }
+      </div>
+      <p class="mt-4 font-mono text-xs text-muted/80">{tech.join(' · ')}</p>
+    </header>
+
+    {
+      metrics && metrics.length > 0 && (
+        <div class="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {metrics.map((m) => (
+            <Metric value={m.value} label={m.label} caveat={m.caveat} />
+          ))}
+        </div>
+      )
+    }
+
+    <div class="prose mt-10">
+      <slot />
+    </div>
+
+    <div class="mt-14 max-w-measure">
+      <Changelog entries={changelog} />
+    </div>
+  </article>
+</Base>
