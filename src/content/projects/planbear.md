@@ -44,23 +44,19 @@ changelog:
     text: Fixed a routing bug letting logged-in users still reach signup/login
 ---
 
-> **Draft status:** this page is built entirely from verified evidence -
-> commit history, code, and the existing evidence audit. The sections
-> below marked *[your input]* are placeholders for the personal framing
-> only Phuc can supply - why this problem, what was hard about it in his
-> own words - and should be treated as pending review, not final copy.
-
 ## The problem
 
-*[your input: what's actually painful about planning a UCLA degree by
-hand - what did you use before this, spreadsheet or paper, and where did
-it fall short?]*
+Planning a UCLA degree means holding a lot in your head at once: roughly
+sixteen quarters, your major's course sequence, GE requirements,
+prerequisite chains, and the fact that not every course runs every
+quarter. The official tools tell you *what* you need but not *when* to
+take it, so most students end up tracking the "when" by hand - a
+spreadsheet, a Notes doc, a printout with arrows on it - which is easy to
+start and painful to keep consistent every time a plan changes.
 
-PlanBear exists to answer a specific, recurring question for UCLA
-students: across sixteen quarters and dozens of major/GE requirements,
-what do I take, and when? It's a drag-and-drop planner over the full
-course catalog, not a general study-planning app - the scope is narrow on
-purpose.
+PlanBear answers one question well: across those sixteen quarters, what do
+I take, and when? It's a drag-and-drop board over the full course catalog,
+not a general study-planning app - the scope is narrow on purpose.
 
 ## My role
 
@@ -120,12 +116,36 @@ but worth naming as a deliberate choice rather than an accident.
 
 ## Data pipeline
 
-*[your input: what was messy about scraping UCLA's catalog - what broke,
-what needed cleanup, how long did it take?]*
+The catalog isn't downloadable - UCLA's registrar site is a
+JavaScript-rendered app with no public API - so the data came from a
+three-phase Playwright crawl. Phase one enumerates every subject area from
+the catalog landing page; phase two paginates through each subject to
+collect every course link; phase three visits each course page and pulls
+subject, title, course ID, and units.
 
-The catalog - 15,154 courses across 196 subject areas - was scraped with
-Playwright and imported directly into Postgres via a seed script. That
-number comes from a direct count of imported records, not an estimate.
+The messy part was that the site is built with generated CSS class names -
+selectors like `.css-1bzya3n-styled--StyledFlexItemSubheading.e1ixoanv1` -
+so there are no stable hooks to grab. Every field extraction is a brittle
+locator wrapped in a fallback that writes `"N/A"` instead of crashing the
+run when a selector misses.
+
+The real obstacle was rate limiting: the registrar blocks aggressive
+scraping and starts returning a "Forbidden" wall. The crawler detects that
+wall and hard-stops with an explicit "change IP and restart" message
+rather than silently collecting garbage. To make that survivable, the run
+is resumable - it writes progress to disk after every batch and, on
+restart, skips links it already captured (anything with a real course ID
+rather than `"N/A"`), so a mid-crawl ban costs a pause, not the whole
+dataset. The polite-scraper measures sit around that: capped concurrency,
+a randomized 1-3 second delay between requests, a real desktop user-agent,
+and blocked image loads to cut bandwidth.
+
+At import, the one transform worth naming: course IDs arrive as a single
+string like `"COM SCI 31"`, split into a subject code and course number on
+the last space, then bulk-inserted with a unique `(subject_code,
+course_number)` constraint so re-running the import can't create
+duplicates. The 15,154 figure is a direct count of what landed in the
+table - 196 subject areas in all - not an estimate.
 
 ## A feature that's scaffolded but not real: offering tracking
 
@@ -191,13 +211,27 @@ a missing single source of truth.
 
 ## Current limitations
 
+- The planner places courses freely - it doesn't model prerequisites or
+  major/GE requirements, so it won't tell you a plan is *invalid*, only
+  hold the plan you build. It's a layout tool, not a degree audit; the
+  course records themselves carry no prerequisite or requirement data yet.
+- Units are stored as strings, so there's no automatic per-quarter unit
+  total or "you're overloaded this term" check.
+- The catalog is a one-time snapshot; nothing refreshes it automatically.
+  The offering tracker above was the unfinished attempt at solving that.
 - Guest and account plans don't merge (above).
-- Course-offering tracking is scaffolded, not functional (above).
+- The scraper depends on UCLA's current generated CSS classes and would
+  break if they change their frontend.
 - No load testing has been done; traffic has been minimal since launch.
-- *[your input: anything else you'd flag if an interviewer pushed on
-  what's missing?]*
 
 ## What's next
 
-*[your input: if you picked this back up, what would you build first -
-finish offering tracking, add the guest/account merge, something else?]*
+The codebase already points at the next pieces. The highest-impact one is
+prerequisite and requirement modeling: giving courses real prerequisite
+relationships and encoding major/GE requirements so the planner can
+validate a plan instead of just storing it - the difference between a
+drag-and-drop board and something that can tell a student "this ordering
+won't work." Beyond that, two things the code already half-starts:
+finishing the course-offering tracker (schema and poller exist, only the
+HTML parser is stubbed) and a guest-to-account merge so signing up stops
+discarding a plan built in guest mode.
