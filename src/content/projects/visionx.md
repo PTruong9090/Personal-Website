@@ -13,13 +13,23 @@ tech:
   - React
 changelog:
   - date: '2026-06-27'
-    text: Project started - camera and auth CRUD, FastAPI/SQLAlchemy/Alembic backend
-  - date: '2026-07-xx'
-    text: go2rtc RTSP-to-WebRTC live streaming integrated
-  - date: '2026-07-xx'
-    text: React dashboard with live view and health checks
+    text: Project started - FastAPI/SQLAlchemy backend and React frontend scaffolded
+  - date: '2026-06-30'
+    text: Database models and camera CRUD routes
+  - date: '2026-07-01'
+    text: go2rtc added for RTSP-to-WebRTC streaming
+  - date: '2026-07-05'
+    text: Dashboard and cameras page working end to end
+  - date: '2026-07-08'
+    text: Camera edit/delete flows, dropdown and confirmation components
+  - date: '2026-07-13'
+    text: FastAPI service wired to register cameras with go2rtc
   - date: '2026-07-14'
-    text: Recording architecture designed; implementation not yet started
+    text: Live stream view working; recording architecture designed, not yet built
+  - date: '2026-07-18'
+    text: Login/signup frontend and auth backend started
+  - date: '2026-07-19'
+    text: Auth completed end to end
 ---
 
 ## Why I'm building this
