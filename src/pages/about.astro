@@ -1,12 +1,128 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+
+import portrait from '../assets/about/portrait-graduation.webp';
+import desertFilm from '../assets/about/photo-desert-film.webp';
+import sfStreet from '../assets/about/photo-sf-street.webp';
+import saigon from '../assets/about/photo-saigon.webp';
+import coffeeDesk from '../assets/about/coffee-desk.webp';
+import coffeeMachine from '../assets/about/coffee-machine.webp';
+
+const photography = [
+  { src: desertFilm, alt: 'Film photograph of an empty dirt road at dusk in the high desert, power lines running toward distant hills under a pink-blue sky' },
+  { src: saigon, alt: 'A city street seen from above under heavy storm clouds, a sliver of sunset on the horizon' },
+  { src: sfStreet, alt: 'Black-and-white street photograph of a San Francisco street at dusk near Union Square, parked cars and tall buildings receding into the distance' },
+];
 ---
 
-<Base title="About - Phuc Truong" description="About Phuc Truong.">
-  <h1 class="text-3xl font-semibold">About</h1>
-  <p class="mt-6 max-w-measure text-muted">
-    This page is a placeholder. Per <a href="/" class="text-accent hover:underline">the
-    homepage</a> and the case studies, you can already see what I've built. A
-    short personal introduction is coming here soon.
-  </p>
+<Base
+  title="About - Phuc Truong"
+  description="Phuc Truong is a new-grad software engineer (UCLA, B.S. Mathematics of Computation) who builds full-stack web apps and runs them on his own homelab. Based in San Jose, CA."
+>
+  <section class="grid gap-10 md:grid-cols-[minmax(0,1fr)_18rem] md:items-start md:gap-12">
+    <div>
+      <h1 class="text-3xl font-semibold">About</h1>
+
+      <div class="mt-6 max-w-measure space-y-5 text-muted">
+        <p>
+          I'm Phuc Truong, a new-grad software engineer. I graduated from UCLA
+          in 2026 with a B.S. in Mathematics of Computation, and I'm actively
+          looking for a full-stack or software engineering role.
+        </p>
+        <p>
+          What I care about most is building things that actually run in
+          production and staying responsible for them - not demos that work
+          once on a laptop. Most of what I know, I learned by building something
+          and then having to keep it alive. I run a <a href="/homelab"
+          class="text-accent hover:underline">homelab</a> - a mini PC and a NAS
+          I put together myself - and every project on this site is served from
+          that hardware, over my own network. When <a href="/projects/planbear"
+          class="text-accent hover:underline">PlanBear</a>'s cloud bill stopped
+          making sense, I moved it home. When I wanted to understand anomaly
+          detection, I pointed a model at my own server's telemetry and watched
+          it over-alert. I'm a hands-on learner, and running infrastructure I'm
+          actually on the hook for has taught me more than any single class.
+        </p>
+        <p>I'm based in San Jose, CA.</p>
+      </div>
+
+      <div class="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        <a href="/Phuc_Truong_Resume.pdf" class="text-accent hover:underline">Resume (PDF)</a>
+        <a href="mailto:ptruong9090@gmail.com" class="text-accent hover:underline">ptruong9090@gmail.com</a>
+        <a href="https://www.linkedin.com/in/ptruong9090/" target="_blank" rel="noopener noreferrer" class="text-accent hover:underline">LinkedIn</a>
+      </div>
+    </div>
+
+    <figure class="md:pt-1">
+      <Image
+        src={portrait}
+        alt="Phuc Truong at UCLA graduation in front of Royce Hall at golden hour, wearing a Class of 2026 Mathematics of Computation stole"
+        class="w-full rounded-lg border border-border"
+        widths={[288, 576]}
+        sizes="(min-width: 768px) 18rem, 100vw"
+      />
+      <figcaption class="mt-2 text-xs text-muted">Royce Hall, UCLA - Class of 2026.</figcaption>
+    </figure>
+  </section>
+
+  <section class="mt-16 border-t border-border pt-12">
+    <h2 class="text-xl font-semibold">Photography</h2>
+    <div class="mt-5 max-w-measure space-y-5 text-muted">
+      <p>
+        I shoot a Fujifilm X100V, usually with a pro-mist filter. What I like
+        about it is getting the shot right in the camera - I didn't want to
+        spend time editing, I wanted to see the photo straight out of the camera
+        and keep it that way. Before the X100V I shot with a Sony a6400 (Tamron
+        28-75, Sigma 16mm).
+      </p>
+      <p>
+        I'm drawn to quiet, in-between scenes: an empty road at dusk, a city
+        from above right before the rain, a street after the crowd thins out.
+      </p>
+    </div>
+
+    <div class="mt-7 gap-3 [column-count:2] md:[column-count:3]">
+      {
+        photography.map((p) => (
+          <Image
+            src={p.src}
+            alt={p.alt}
+            class="mb-3 w-full rounded-lg border border-border"
+            widths={[300, 500]}
+            sizes="(min-width: 768px) 33vw, 50vw"
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mt-16 border-t border-border pt-12">
+    <h2 class="text-xl font-semibold">Coffee</h2>
+    <div class="mt-5 max-w-measure space-y-5 text-muted">
+      <p>
+        I've never worked as a barista - I just love to drink coffee. I pull my
+        own shots at home and enjoy tasting how different beans and roasts each
+        have their own flavor profiles, always chasing the perfect cup. I
+        practice latte art too.
+      </p>
+    </div>
+
+    <div class="mt-7 grid grid-cols-2 gap-3">
+      <Image
+        src={coffeeDesk}
+        alt="A latte with a rosetta poured into a glass, held over a desk with a mechanical keyboard, monitors, and a laptop"
+        class="w-full rounded-lg border border-border"
+        widths={[400, 700]}
+        sizes="(min-width: 768px) 33vw, 50vw"
+      />
+      <Image
+        src={coffeeMachine}
+        alt="A latte with leaf art in a ceramic cup next to a home espresso machine on a kitchen counter"
+        class="w-full rounded-lg border border-border"
+        widths={[400, 700]}
+        sizes="(min-width: 768px) 33vw, 50vw"
+      />
+    </div>
+  </section>
 </Base>
