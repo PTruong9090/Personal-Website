@@ -128,6 +128,18 @@ isn't representative yet.
 ![Grafana dashboard of the four raw telemetry features the model scores -
 media-server CPU, memory, and network receive/transmit rates](../../assets/screenshots/grafana-raw-features.png)
 
+And the model's live output on that same telemetry: the TranAD anomaly
+score against its learned threshold, with the running count of timesteps
+flagged anomalous.
+
+![Grafana model-output panels: TranAD anomaly score plotted against the
+learned threshold over a six-hour window, a count of anomalous timesteps,
+and a score-ratio timeline for the media-server instance](../../assets/screenshots/grafana-model-output.png)
+
+The score riding right up against the threshold is exactly the
+over-alerting described above - the baseline it learned is too quiet, so
+ordinary activity keeps crossing the line.
+
 ## Status and next steps
 
 Paused at a working MVP since late June 2026, deliberately: I want a longer
