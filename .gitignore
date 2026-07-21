@@ -25,3 +25,6 @@ dist-ssr
 
 # Astro generated types
 .astro
+
+# Lighthouse reports
+*.report.html
