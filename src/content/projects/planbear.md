@@ -46,17 +46,23 @@ changelog:
 
 ## The problem
 
-Planning a UCLA degree means holding a lot in your head at once: roughly
-sixteen quarters, your major's course sequence, GE requirements,
-prerequisite chains, and the fact that not every course runs every
-quarter. The official tools tell you *what* you need but not *when* to
-take it, so most students end up tracking the "when" by hand - a
-spreadsheet, a Notes doc, a printout with arrows on it - which is easy to
-start and painful to keep consistent every time a plan changes.
+I built PlanBear because I lost an afternoon to this exact task. Planning a
+UCLA degree means holding a lot in your head at once - roughly sixteen
+quarters, your major's course sequence, GE requirements, prerequisite
+chains, and the fact that not every course runs every quarter. The
+official tools tell you *what* you need but not *when* to take it. I
+remember sitting at my desk for around four hours, bouncing back and forth
+between catalog pages to research which courses were worth taking, trying
+to hold a coherent multi-year structure in my head with nowhere good to
+lay it out.
 
-PlanBear answers one question well: across those sixteen quarters, what do
-I take, and when? It's a drag-and-drop board over the full course catalog,
-not a general study-planning app - the scope is narrow on purpose.
+PlanBear answers the question I was stuck on that afternoon: across those
+sixteen quarters, what do I take, and when? It's a drag-and-drop board over
+the full course catalog, not a general study-planning app - the scope is
+narrow on purpose.
+
+(The name is a small joke: UCLA's mascot is the Bruin, but "Bruin" is the
+university's to use, not mine - so, a bear that helps you plan. PlanBear.)
 
 ## My role
 
@@ -129,16 +135,14 @@ so there are no stable hooks to grab. Every field extraction is a brittle
 locator wrapped in a fallback that writes `"N/A"` instead of crashing the
 run when a selector misses.
 
-The real obstacle was rate limiting: the registrar blocks aggressive
-scraping and starts returning a "Forbidden" wall. The crawler detects that
-wall and hard-stops with an explicit "change IP and restart" message
-rather than silently collecting garbage. To make that survivable, the run
-is resumable - it writes progress to disk after every batch and, on
-restart, skips links it already captured (anything with a real course ID
-rather than `"N/A"`), so a mid-crawl ban costs a pause, not the whole
-dataset. The polite-scraper measures sit around that: capped concurrency,
-a randomized 1-3 second delay between requests, a real desktop user-agent,
-and blocked image loads to cut bandwidth.
+The other constraint was load: the registrar rate-limits sustained
+scraping, so the crawler is built to go easy on it rather than hammer it -
+capped concurrency, a randomized 1-3 second delay between requests, and
+blocked image loads to cut bandwidth. The piece that mattered most was full
+resumability: it writes progress to disk after every batch and, on
+restart, skips every link it already captured (anything with a real course
+ID rather than `"N/A"`), so an interruption costs a pause instead of the
+whole dataset. End to end, the crawl took around two hours.
 
 At import, the one transform worth naming: course IDs arrive as a single
 string like `"COM SCI 31"`, split into a subject code and course number on
@@ -226,12 +230,13 @@ a missing single source of truth.
 
 ## What's next
 
-The codebase already points at the next pieces. The highest-impact one is
-prerequisite and requirement modeling: giving courses real prerequisite
-relationships and encoding major/GE requirements so the planner can
-validate a plan instead of just storing it - the difference between a
-drag-and-drop board and something that can tell a student "this ordering
-won't work." Beyond that, two things the code already half-starts:
-finishing the course-offering tracker (schema and poller exist, only the
-HTML parser is stubbed) and a guest-to-account merge so signing up stops
-discarding a plan built in guest mode.
+I'm not actively developing PlanBear right now - it does the job I built it
+for. If I picked it back up, the first thing I'd build is prerequisite and
+requirement modeling: giving courses real prerequisite relationships and
+encoding major/GE requirements so the planner can validate a plan instead
+of just storing it - the difference between a drag-and-drop board and
+something that can tell a student "this ordering won't work." The code
+already half-starts two other pieces that would follow: finishing the
+course-offering tracker (schema and poller exist, only the HTML parser is
+stubbed) and a guest-to-account merge so signing up stops discarding a
+plan built in guest mode.
