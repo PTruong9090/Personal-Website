@@ -80,6 +80,32 @@ into a format the requesting device can play; that encoding step is what
 limits it to only one or two simultaneous transcoded streams before CPU
 becomes the bottleneck.
 
+## A bug I chased: Nextcloud losing write access to the NAS
+
+One of the most stubborn problems I hit early on was Nextcloud losing the
+ability to write to its storage on the NAS. It would work fine for a
+stretch, then start erroring out because it could no longer write to the
+share.
+
+The root of it was a permissions mismatch: the Nextcloud container ran as
+one user, and the NAS share was owned by a different one, so the container
+didn't actually have write access to the files it was supposed to manage.
+What made it maddening was that it wasn't a clean, permanent failure -
+permissions would look correct and work for a while, then revert to a state
+that blocked writes again, and Nextcloud would break.
+
+I fixed it by forcing both sides to agree: I set the container's PUID/PGID
+to match the NAS's ownership and adjusted the permissions on the share
+mount itself, so the user the container ran as was the same user that
+actually owned the files on disk. Once both layers lined up, the writes
+stopped failing.
+
+The lesson that stuck: a container and the host filesystem it mounts don't
+share a user model. The container's internal user ID has to line up with
+whoever owns the files on disk, or every write silently fails - and no
+amount of fixing it inside the app helps, because the real problem is at
+the filesystem layer underneath.
+
 ## What it costs, what it taught me
 
 The setup doesn't draw much power day to day, but it wasn't cheap to
